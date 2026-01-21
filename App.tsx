@@ -51,6 +51,18 @@ const App: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Lock body scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMenuOpen]);
+
   // Initialize AOS
   useEffect(() => {
     if (typeof AOS !== 'undefined') {
@@ -90,10 +102,11 @@ const App: React.FC = () => {
               <img 
                 src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" 
                 alt="Lalie Spa Logo" 
-                className={`h-12 w-auto transition-all ${!isScrolled && 'brightness-0 invert'}`}
+                className={`h-12 w-auto transition-all ${isScrolled ? 'brightness-100' : 'brightness-0 invert'}`}
               />
             </a>
 
+            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
               {NAV_ITEMS.map((item) => (
                 <a
@@ -114,17 +127,67 @@ const App: React.FC = () => {
               </button>
             </div>
 
+            {/* Mobile Menu Toggle Button */}
             <div className="md:hidden flex items-center gap-2">
-              <button onClick={toggleLang} className={`p-2 rounded-full border ${isScrolled ? 'border-gray-200 text-gray-800' : 'border-white/30 text-white'}`}>
+              <button onClick={toggleLang} className={`p-2 rounded-full border transition-colors ${isScrolled ? 'border-gray-200 text-gray-800' : 'border-white/30 text-white'}`}>
                 <Globe size={20} />
               </button>
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`p-2 rounded-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
-                {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
+              <button onClick={() => setIsMenuOpen(true)} className={`p-2 rounded-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
+                <MenuIcon size={28} />
               </button>
             </div>
           </div>
         </div>
       </nav>
+
+      {/* Mobile Sidebar Overlay */}
+      <div 
+        className={`fixed inset-0 bg-black/80 backdrop-blur-md z-[999] transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} 
+        onClick={() => setIsMenuOpen(false)}
+      >
+        <div 
+          className={`fixed top-0 bottom-0 ${lang === 'ar' ? 'left-0' : 'right-0'} w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-500 flex flex-col ${isMenuOpen ? 'translate-x-0' : (lang === 'ar' ? '-translate-x-full' : 'translate-x-full')}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="p-6 flex justify-between items-center border-b border-gray-100">
+            <img src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" alt="Logo" className="h-10" />
+            <button 
+              onClick={() => setIsMenuOpen(false)} 
+              className="p-2 text-gray-400 hover:text-gray-900 transition-colors"
+            >
+              <X size={32} />
+            </button>
+          </div>
+
+          <nav className="flex-grow flex flex-col p-8 gap-8 mt-10">
+            {NAV_ITEMS.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={() => handleNavClick(item.id)}
+                className="text-3xl font-serif text-gray-800 hover:text-[#C5A383] transition-colors border-b border-gray-50 pb-4 flex justify-between items-center"
+              >
+                {item.label[lang]}
+                <span className="text-gray-300 text-lg">→</span>
+              </a>
+            ))}
+          </nav>
+
+          <div className="p-8 border-t border-gray-100 bg-gray-50/50 space-y-6">
+             <button 
+              onClick={toggleLang}
+              className="w-full flex items-center justify-center gap-3 bg-white border border-gray-200 py-4 rounded-2xl shadow-sm text-gray-800 font-bold uppercase tracking-widest text-sm hover:border-[#C5A383] transition-all"
+            >
+              <Globe size={20} className="text-[#C5A383]" />
+              {lang === 'en' ? 'SWITCH TO العربية' : 'التحويل إلى English'}
+            </button>
+            <div className="flex justify-center gap-6 text-gray-400">
+               <a href={`https://instagram.com/${CONTACT_INFO.instagram}`} target="_blank" rel="noopener noreferrer"><Instagram size={24} /></a>
+               <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={24} /></a>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Hero Section */}
       <header id="home" className="relative h-[85vh] flex items-center justify-center overflow-hidden">
@@ -137,7 +200,7 @@ const App: React.FC = () => {
           />
         </div>
         <div className="relative z-20 text-center px-4 pt-20" data-aos="fade">
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 drop-shadow-xl">{t('heroTitle')}</h1>
+          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 drop-shadow-xl leading-tight">{t('heroTitle')}</h1>
           <p className="text-white/90 mb-10 max-w-2xl mx-auto font-light">{t('heroSubtitle')}</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" className="bg-[#C5A383] text-white px-8 py-3 rounded-full text-sm font-bold transition-all hover:bg-[#B38D6A]">{t('bookNow')}</a>
@@ -194,7 +257,6 @@ const App: React.FC = () => {
       <section id="services" className="py-20 px-4 bg-[#F8F3F0]/30">
         <div className="max-w-5xl mx-auto">
           
-          {/* Main Tabs */}
           <div className="flex items-center space-x-12 rtl:space-x-reverse mb-8 border-b border-gray-100 overflow-x-auto whitespace-nowrap scrollbar-hide">
             {['service', 'package', 'giftCard'].map(tab => (
               <button
@@ -212,7 +274,6 @@ const App: React.FC = () => {
             ))}
           </div>
 
-          {/* Sub-Category Filter Pills */}
           <div className="flex items-center gap-3 mb-10 overflow-x-auto pb-4 whitespace-nowrap scrollbar-hide no-scrollbar">
             {categories.map((cat) => (
               <button
@@ -230,7 +291,6 @@ const App: React.FC = () => {
             ))}
           </div>
 
-          {/* Service Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredServices.map((service, idx) => (
               <div 
@@ -282,27 +342,57 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Contact & Map */}
-      <section id="contact" className="py-24 px-4 bg-[#FDFCFB]">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
-          <div data-aos="fade-up">
-            <h2 className="text-3xl font-serif mb-8">{t('contactTitle')}</h2>
-            <div className="space-y-6">
-              <div className="flex gap-4">
-                <MapPin className="text-[#C5A383]" />
-                <p className="text-gray-500">{CONTACT_INFO.address}</p>
+      {/* Redesigned Contact Section - Matches Reference Image */}
+      <section id="contact" className="py-24 px-6 md:px-12 lg:px-24 bg-white border-t border-gray-50">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:items-center">
+          
+          {/* Left Side: Contact Info */}
+          <div className="flex-1 space-y-12" data-aos="fade-right">
+            <h2 className="text-4xl md:text-5xl font-serif text-gray-900 leading-tight">
+              {t('contactTitle')}
+            </h2>
+            
+            <div className="space-y-10">
+              {/* Location */}
+              <div className="flex items-start gap-6 group">
+                <div className="flex-shrink-0 mt-1">
+                  <MapPin size={28} className="text-[#C5A383] group-hover:scale-110 transition-transform" />
+                </div>
+                <div>
+                  <p className="text-gray-600 text-lg leading-relaxed font-light">
+                    {CONTACT_INFO.address}
+                  </p>
+                </div>
               </div>
-              <div className="flex gap-4">
-                <MessageCircle className="text-[#25D366]" />
-                <p className="text-gray-500">{CONTACT_INFO.phone}</p>
+
+              {/* WhatsApp */}
+              <div className="flex items-start gap-6 group">
+                <div className="flex-shrink-0 mt-1">
+                  <MessageCircle size={28} className="text-[#25D366] group-hover:scale-110 transition-transform" />
+                </div>
+                <div>
+                  <a 
+                    href={`https://wa.me/${CONTACT_INFO.whatsapp}`} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 text-lg leading-relaxed font-light hover:text-[#C5A383] transition-colors"
+                  >
+                    {CONTACT_INFO.phone}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-          <div className="rounded-[2.5rem] overflow-hidden h-[400px] shadow-2xl" data-aos="zoom-in">
-             <iframe 
+
+          {/* Right Side: Map */}
+          <div className="flex-1 lg:h-[500px]" data-aos="zoom-in">
+            <div className="w-full h-full rounded-[2.5rem] md:rounded-[3.5rem] overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.08)] relative border-[12px] border-gray-50/30">
+              <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3709.664960391232!2d39.14208490000001!3d21.5989973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3db7ce1ba71bd%3A0x6069ec299c8f90cb!2zTGFsaWUgc3BhINmE2KfZhNmKINiz2KjYpw!5e0!3m2!1sen!2ssa!4v1769002112417!5m2!1sen!2ssa" 
                 width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" title="Map"
+                className="grayscale-[0.2] hover:grayscale-0 transition-all duration-700"
               ></iframe>
+            </div>
           </div>
         </div>
       </section>
