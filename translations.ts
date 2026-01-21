@@ -23,8 +23,8 @@ export const content: Translation = {
     ar: "قصتنا"
   },
   aboutDesc: {
-    en: "L'Aura Spa was founded on the principles of luxury, care, and total wellness. Nestled in Sultan Mall, Al Zahra, we provide a curated selection of world-class beauty and body treatments designed to rejuvenate your spirit.",
-    ar: "تأسست لاورا سبا على مبادئ الفخامة والعناية والرفاهية الكاملة. يقع في سلطان مول، حي الزهراء، ونقدم مجموعة مختارة من علاجات التجميل والجسم العالمية المصممة لتجديد روحك."
+    en: "Lalie Spa was founded on the principles of luxury, care, and total wellness. Nestled in Sultan Mall, Al Zahra, we provide a curated selection of world-class beauty and body treatments designed to rejuvenate your spirit.",
+    ar: "تأسست لالي سبا على مبادئ الفخامة والعناية والرفاهية الكاملة. يقع في سلطان مول، حي الزهراء، ونقدم مجموعة مختارة من علاجات التجميل والجسم العالمية المصممة لتجديد روحك."
   },
   missionTitle: {
     en: "Our Mission",
@@ -43,8 +43,8 @@ export const content: Translation = {
     ar: "باقات حصرية"
   },
   galleryTitle: {
-    en: "Experience L'Aura",
-    ar: "تجربة لاورا"
+    en: "Experience Lalie Spa",
+    ar: "تجربة لالي سبا"
   },
   contactTitle: {
     en: "Get in Touch",

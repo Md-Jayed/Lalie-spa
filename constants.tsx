@@ -98,8 +98,8 @@ export const CONTACT_INFO = {
   address: "Sultan Mall, Al Batarji, Al Zahra, Jeddah 23522",
   phone: "0547738385",
   whatsapp: "966547738385",
-  instagram: "laura_spa_jeddah",
-  email: "info@lauraspa.com"
+  instagram: "laliespa_jeddah",
+  email: "info@laliespa.com"
 };
 
 export const WORKING_HOURS = [

@@ -68,7 +68,7 @@ const App: React.FC = () => {
             <a href="#home" className="flex-shrink-0 flex items-center transition-transform hover:scale-105" onClick={() => handleNavClick('home')}>
               <img 
                 src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" 
-                alt="L'Aura Logo" 
+                alt="Lalie Spa Logo" 
                 className={`h-12 w-auto transition-all ${!isScrolled && 'brightness-0 invert'}`}
               />
             </a>
@@ -321,7 +321,7 @@ const App: React.FC = () => {
               </p>
               <div className="p-8 bg-[#F8F3F0] rounded-[2.5rem] border-r-8 border-[#C5A383] rtl:border-r-0 rtl:border-l-8">
                 <p className="text-gray-800 font-medium italic">
-                  {lang === 'en' ? '"Perfect for gifts or special occasions. Treat your loved ones to L\'Aura."' : '"مثالي للهدايا أو المناسبات الخاصة. دللي أحبائك في لاورا."'}
+                  {lang === 'en' ? `"Perfect for gifts or special occasions. Treat your loved ones to Lalie Spa."` : `"مثالي للهدايا أو المناسبات الخاصة. دللي أحبائك في لالي سبا."`}
                 </p>
               </div>
             </div>
@@ -351,7 +351,7 @@ const App: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20 space-y-4">
             <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('galleryTitle')}</h2>
-            <h3 className="text-5xl md:text-6xl font-serif text-gray-900">{lang === 'en' ? 'L\'Aura Gallery' : 'معرض لاورا'}</h3>
+            <h3 className="text-5xl md:text-6xl font-serif text-gray-900">{lang === 'en' ? 'Lalie Spa Gallery' : 'معرض لالي سبا'}</h3>
           </div>
           
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-8 space-y-8">
@@ -486,7 +486,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 text-sm font-medium">
-            <p>&copy; {new Date().getFullYear()} L'Aura Luxury Spa & Wellness. Jeddah, Saudi Arabia.</p>
+            <p>&copy; {new Date().getFullYear()} Lalie Spa. Jeddah, Saudi Arabia.</p>
             <div className="flex gap-10">
               <a href="#" className="hover:text-white transition-colors">{lang === 'en' ? 'Privacy' : 'الخصوصية'}</a>
               <a href="#" className="hover:text-white transition-colors">{lang === 'en' ? 'Terms' : 'الشروط'}</a>
@@ -495,7 +495,7 @@ const App: React.FC = () => {
         </div>
         {/* Background Decorative Text */}
         <div className="absolute -bottom-10 left-0 w-full opacity-[0.03] select-none pointer-events-none overflow-hidden whitespace-nowrap">
-           <span className="text-[20vw] font-serif font-bold uppercase tracking-tighter">L'AURA SPA JEDDAH</span>
+           <span className="text-[20vw] font-serif font-bold uppercase tracking-tighter">LALIE SPA JEDDAH</span>
         </div>
       </footer>
 
