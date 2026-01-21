@@ -14,10 +14,10 @@ export const SERVICES: Service[] = [
   {
     id: 's1',
     category: { en: 'Care', ar: 'عناية' },
-    name: { en: 'Hand Paraffin', ar: 'برافين اليدين' },
+    name: { en: 'Hand Paraffin', ar: 'شمع البارافين اليدوي' },
     price: '143',
     duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1519415387722-a1c3bbef716c?q=80&w=400&h=300&fit=crop'
+    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/tbl_articles_article_29991_56572e0dd63-97fa-4352-ad5b-9d4bf83e00ee_20251021050957215.jpg'
   },
   {
     id: 's2',
@@ -25,7 +25,7 @@ export const SERVICES: Service[] = [
     name: { en: 'Foot Paraffin', ar: 'برافين القدمين' },
     price: '143',
     duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1519415568184-e53805407000?q=80&w=400&h=300&fit=crop'
+    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/71YM27SS+gL_20251021051018154._SL1500__20251021051018154.jpg'
   },
   {
     id: 's3',
@@ -33,7 +33,7 @@ export const SERVICES: Service[] = [
     name: { en: 'Classic Manicure', ar: 'مانيكير كلاسيك' },
     price: '100',
     duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1604654894610-df63bc536371?q=80&w=400&h=300&fit=crop'
+    image: 'https://i.ibb.co/TB83b9rL/Untitled-design-9.png'
   },
   {
     id: 's4',
@@ -41,7 +41,7 @@ export const SERVICES: Service[] = [
     name: { en: 'Classic Pedicure', ar: 'باديكير كلاسيك' },
     price: '125',
     duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1519415943484-9fa1873496d4?q=80&w=400&h=300&fit=crop'
+    image: 'https://i.ibb.co/TB83b9rL/Untitled-design-9.png'
   },
   {
     id: 's5',
@@ -49,7 +49,7 @@ export const SERVICES: Service[] = [
     name: { en: 'Classic Lashes', ar: 'رموش كلاسيك' },
     price: '385',
     duration: { en: '120 Min', ar: '١٢٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1583001931096-959e9a1a6223?q=80&w=400&h=300&fit=crop'
+    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/x5zDEo8mjwveR69Mgnt3IHLlKDRCpiqpNn6JzcFt_20251021072917227.webp'
   },
   {
     id: 's6',
@@ -57,7 +57,7 @@ export const SERVICES: Service[] = [
     name: { en: 'Face Cleaning (Razor)', ar: 'تنظيف الوجه (شفرة)' },
     price: '50',
     duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?q=80&w=400&h=300&fit=crop'
+    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/7d4b5728-6aa5-4c7b-b5d5-befbf0f30e2f_20251021092335822.__CR0,0,1500,1500_PT0_SX300_V1____20251021092335822.jpg'
   },
 ];
 
