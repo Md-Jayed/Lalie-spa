@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Menu as MenuIcon, 
@@ -147,8 +146,52 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      {/* Services Section - Redesigned to match image */}
-      <section id="services" className="py-20 px-4 bg-white">
+      {/* Our Story Section */}
+      <section id="about" className="py-24 px-4 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+          <div className="relative" data-aos="fade-right">
+            <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl relative">
+              <img 
+                src="https://glamerastorage.b-cdn.net/ServiceImgs/10_20251021053247725.jpg" 
+                alt="Our Story" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+            </div>
+            <div className="absolute -bottom-6 -right-6 md:-bottom-10 md:-right-10 w-32 h-32 md:w-48 md:h-48 bg-[#F8F3F0] rounded-3xl flex flex-col items-center justify-center p-4 shadow-xl border-4 border-white">
+              <span className="text-3xl md:text-5xl font-serif text-[#C5A383]">10+</span>
+              <p className="text-[10px] md:text-xs uppercase tracking-widest text-center font-bold mt-1">{lang === 'en' ? 'Years of Luxury' : 'سنوات من الفخامة'}</p>
+            </div>
+          </div>
+          <div className="space-y-8" data-aos="fade-left">
+            <div className="space-y-4">
+              <div className="w-16 h-1 bg-[#C5A383]"></div>
+              <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-xs">{t('aboutTitle')}</h2>
+              <h3 className="text-3xl md:text-5xl font-serif text-gray-900 leading-tight">
+                {lang === 'en' ? 'A Sanctuary for the Soul' : 'ملاذ للروح والجمال'}
+              </h3>
+            </div>
+            <p className="text-gray-500 text-lg font-light leading-relaxed">
+              {t('aboutDesc')}
+            </p>
+            <div className="grid sm:grid-cols-2 gap-8 pt-4">
+              <div className="bg-[#F8F3F0]/60 p-6 rounded-2xl border border-transparent hover:border-[#C5A383]/10 transition-all">
+                <h4 className="text-xl font-serif font-bold text-gray-900 mb-2">{t('missionTitle')}</h4>
+                <p className="text-gray-500 text-sm font-light leading-relaxed">{t('missionDesc')}</p>
+              </div>
+              <div className="bg-[#F8F3F0]/60 p-6 rounded-2xl border border-transparent hover:border-[#C5A383]/10 transition-all">
+                <h4 className="text-xl font-serif font-bold text-gray-900 mb-2">{lang === 'en' ? 'Our Values' : 'قيمنا'}</h4>
+                <p className="text-gray-500 text-sm font-light leading-relaxed">
+                  {lang === 'en' ? 'Integrity, excellence, and a commitment to personalized care for every guest.' : 'النزاهة والتميز والالتزام بالرعاية الشخصية لكل ضيفة.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services" className="py-20 px-4 bg-[#F8F3F0]/30">
         <div className="max-w-5xl mx-auto">
           
           {/* Main Tabs */}
@@ -223,7 +266,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Gallery */}
-      <section id="gallery" className="py-24 px-4 bg-[#F8F3F0]/50">
+      <section id="gallery" className="py-24 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16" data-aos="fade">
              <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-xs mb-2">{t('galleryTitle')}</h2>
@@ -240,7 +283,7 @@ const App: React.FC = () => {
       </section>
 
       {/* Contact & Map */}
-      <section id="contact" className="py-24 px-4 bg-white">
+      <section id="contact" className="py-24 px-4 bg-[#FDFCFB]">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
           <div data-aos="fade-up">
             <h2 className="text-3xl font-serif mb-8">{t('contactTitle')}</h2>
