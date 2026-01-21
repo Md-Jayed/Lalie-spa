@@ -89,9 +89,9 @@ export const GALLERY_IMAGES = [
   'https://glamerastorage.b-cdn.net/ServiceImgs/10_20251021053247725.jpg',
   'https://glamerastorage.b-cdn.net/ServiceImgs/20_20251021053114819.jpg',
   'https://glamerastorage.b-cdn.net/ServiceImgs/30_20251021053302561.jpg',
-  'https://images.unsplash.com/photo-1544161515-4af6b1d4640b?q=80&w=800&fit=crop',
-  'https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800&fit=crop',
-  'https://images.unsplash.com/photo-1600334129128-685c5582fd35?q=80&w=800&fit=crop',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/40_20251021053320109.jpg',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/50_20251021053335337.jpg',
+  'https://instagram.fjed4-4.fna.fbcdn.net/v/t51.82787-15/613133981_17896153998381351_7499967859252912274_n.jpg?stp=dst-jpg_e35_p480x480_tt6&_nc_cat=108&ig_cache_key=MzgxNDE1OTAxNDA3OTM1ODAwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNDl4MTY4NS5zZHIuQzMifQ%3D%3D&_nc_ohc=DOVXJIYfM2EQ7kNvwHORB8Y&_nc_oc=AdnAZrXfvflYRXcH65Bid8ZmWTM0f1PwSjSbVfdNuNdUedtyRNgNyXDMJSrZedMke7YMzvb5NnSQ05spmoiQDN_N&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fjed4-4.fna&_nc_gid=m6CSNVAI94BWNGXlLX9KvA&oh=00_Afp60tCaGkGGJuZHeKUZ_4mbXeuP6_Sc7PigJAEelz1zjA&oe=6976941C',
 ];
 
 export const CONTACT_INFO = {
