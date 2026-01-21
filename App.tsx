@@ -167,24 +167,24 @@ const App: React.FC = () => {
           <div className="inline-block px-4 py-1 mb-6 border border-white/30 rounded-full text-white/90 text-[10px] tracking-[0.4em] uppercase backdrop-blur-sm animate-[fade-in-up_1s_ease-out_forwards]">
             {lang === 'en' ? 'Premier Wellness Destination' : 'وجهة الرفاهية الأولى'}
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-6 tracking-tight drop-shadow-2xl opacity-0 animate-[fade-in-up_1s_ease-out_0.2s_forwards] leading-[1.15]">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 tracking-tight drop-shadow-2xl opacity-0 animate-[fade-in-up_1s_ease-out_0.2s_forwards] leading-[1.15]">
             {t('heroTitle')}
           </h1>
-          <p className="text-lg md:text-xl text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md opacity-0 animate-[fade-in-up_1s_ease-out_0.4s_forwards] font-light">
+          <p className="text-base md:text-lg text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md opacity-0 animate-[fade-in-up_1s_ease-out_0.4s_forwards] font-light">
             {t('heroSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
             <a 
               href={`https://wa.me/${CONTACT_INFO.whatsapp}`} 
               target="_blank"
-              className="group bg-[#C5A383] hover:bg-[#B38D6A] text-white px-8 py-3.5 rounded-full text-base font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-2"
+              className="group bg-[#C5A383] hover:bg-[#B38D6A] text-white px-7 py-3 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-2"
             >
               {t('bookNow')}
-              <MessageCircle size={18} />
+              <MessageCircle size={16} />
             </a>
             <a 
               href="#services" 
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 px-8 py-3.5 rounded-full text-base font-medium transition-all hover:border-white"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 px-7 py-3 rounded-full text-sm font-medium transition-all hover:border-white"
             >
               {t('viewServices')}
             </a>
@@ -428,7 +428,7 @@ const App: React.FC = () => {
               <div className="absolute -inset-4 bg-[#F8F3F0] rounded-[3.5rem] -z-10 rotate-3"></div>
               <div className="h-full min-h-[600px] rounded-[3rem] overflow-hidden shadow-2xl relative border-8 border-white">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3708.995098939634!2d39.12456307525203!3d21.62483108018679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3da4369e8b919%3A0xe54359560f787e9!2sSultan%20Mall!5e0!3m2!1sen!2ssa!4v1700000000000!5m2!1sen!2ssa" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3709.664960391232!2d39.14208490000001!3d21.5989973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3db7ce1ba71bd%3A0x6069ec299c8f90cb!2zTGFsaWUgc3BhINmE2KfZhNmKINiz2KjYpw!5e0!3m2!1sen!2ssa!4v1769002112417!5m2!1sen!2ssa" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
