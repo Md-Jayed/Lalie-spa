@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
   <head>
@@ -9,6 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
       :root {
         scroll-padding-top: 5rem; /* Matches the h-20 (80px) header height */
@@ -40,6 +41,13 @@
       ::-webkit-scrollbar-thumb:hover {
         background: #b38d6a;
       }
+      /* Ensure AOS visibility */
+      [data-aos] {
+        pointer-events: none;
+      }
+      .aos-animate {
+        pointer-events: auto;
+      }
     </style>
     <script type="importmap">
     {
@@ -55,6 +63,8 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- AOS Script -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script type="module" src="/index.tsx"></script>
   </body>
 </html>

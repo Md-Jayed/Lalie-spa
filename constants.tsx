@@ -91,14 +91,25 @@ export const GALLERY_IMAGES = [
   'https://glamerastorage.b-cdn.net/ServiceImgs/30_20251021053302561.jpg',
   'https://glamerastorage.b-cdn.net/ServiceImgs/40_20251021053320109.jpg',
   'https://glamerastorage.b-cdn.net/ServiceImgs/50_20251021053335337.jpg',
-  'https://instagram.fjed4-4.fna.fbcdn.net/v/t51.82787-15/613133981_17896153998381351_7499967859252912274_n.jpg?stp=dst-jpg_e35_p480x480_tt6&_nc_cat=108&ig_cache_key=MzgxNDE1OTAxNDA3OTM1ODAwNA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjEzNDl4MTY4NS5zZHIuQzMifQ%3D%3D&_nc_ohc=DOVXJIYfM2EQ7kNvwHORB8Y&_nc_oc=AdnAZrXfvflYRXcH65Bid8ZmWTM0f1PwSjSbVfdNuNdUedtyRNgNyXDMJSrZedMke7YMzvb5NnSQ05spmoiQDN_N&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fjed4-4.fna&_nc_gid=m6CSNVAI94BWNGXlLX9KvA&oh=00_Afp60tCaGkGGJuZHeKUZ_4mbXeuP6_Sc7PigJAEelz1zjA&oe=6976941C',
+  'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=800',
+];
+
+export const INSTAGRAM_POSTS = [
+  'https://glamerastorage.b-cdn.net/ServiceImgs/10_20251021053247725.jpg',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/20_20251021053114819.jpg',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/30_20251021053302561.jpg',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/40_20251021053320109.jpg',
+  'https://glamerastorage.b-cdn.net/ServiceImgs/50_20251021053335337.jpg',
+  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
+  'https://images.unsplash.com/photo-1519415568184-e53805407000?auto=format&fit=crop&q=80&w=800',
+  'https://images.unsplash.com/photo-1544161515-4af6b1d4640b?auto=format&fit=crop&q=80&w=800',
 ];
 
 export const CONTACT_INFO = {
   address: "Sultan Mall, Al Batarji, Al Zahra, Jeddah 23522",
   phone: "0547738385",
   whatsapp: "966547738385",
-  instagram: "laliespa_jeddah",
+  instagram: "lalie.spa25",
   email: "info@laliespa.com"
 };
 

@@ -50,6 +50,14 @@ export const content: Translation = {
     en: "Get in Touch",
     ar: "تواصل معنا"
   },
+  instagramTitle: {
+    en: "Moments from Lalie",
+    ar: "لحظات من لالي"
+  },
+  followUs: {
+    en: "Follow Us on Instagram",
+    ar: "تابعينا على انستقرام"
+  },
   location: {
     en: "Sultan Mall, Al Batarji, Al Zahra, Jeddah",
     ar: "سلطان مول، شارع البترجي، حي الزهراء، جدة"
