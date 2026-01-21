@@ -160,7 +160,7 @@ const App: React.FC = () => {
           <div className="absolute inset-0 bg-black/40 z-10"></div>
           {/* Using provided flyer images as a background slider or static featured image */}
           <img 
-            src="https://glamerastorage.b-cdn.net/ServiceImgs/30_20251021053302561.jpg" 
+            src="https://i.ibb.co/tTngxrFr/Untitled-design-8.png" 
             alt="Spa flyer background" 
             className="w-full h-full object-cover scale-100 animate-[ken-burns_30s_infinite_alternate]"
           />
