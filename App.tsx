@@ -8,15 +8,14 @@ import {
   MapPin, 
   Clock, 
   MessageCircle, 
-  ArrowRight, 
-  ArrowLeft 
+  Plus,
+  Sparkles
 } from 'lucide-react';
 import { Language } from './types';
 import { content } from './translations';
 import { 
   NAV_ITEMS, 
   SERVICES, 
-  PACKAGES, 
   GALLERY_IMAGES, 
   CONTACT_INFO, 
   WORKING_HOURS
@@ -28,15 +27,17 @@ declare var AOS: any;
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>('en');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string>('all');
   const [isScrolled, setIsScrolled] = useState(false);
+  const [activeMainTab, setActiveMainTab] = useState('service');
+  const [activeCategory, setActiveCategory] = useState('all');
   
+  // Categories derived from data
+  const categories = ['all', ...Array.from(new Set(SERVICES.map(s => s.category.en)))];
+
   // Update direction and font based on language
   useEffect(() => {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
-    
-    // Refresh AOS on language change as layout shifts
     if (typeof AOS !== 'undefined') {
       AOS.refresh();
     }
@@ -58,7 +59,7 @@ const App: React.FC = () => {
         duration: 1200,
         once: true,
         easing: 'ease-in-out',
-        offset: 100,
+        offset: 50,
         delay: 50,
       });
     }
@@ -75,6 +76,10 @@ const App: React.FC = () => {
     setIsMenuOpen(false);
   };
 
+  const filteredServices = activeCategory === 'all' 
+    ? SERVICES 
+    : SERVICES.filter(s => s.category.en === activeCategory);
+
   return (
     <div className={`min-h-screen bg-[#FDFCFB] text-gray-900 transition-colors duration-500 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}>
       
@@ -82,7 +87,6 @@ const App: React.FC = () => {
       <nav className={`fixed w-full z-[100] transition-all duration-500 ${isScrolled ? 'bg-white/95 backdrop-blur-md h-20 shadow-md' : 'bg-transparent h-24'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <div className="flex justify-between items-center h-full">
-            {/* Logo */}
             <a href="#home" className="flex-shrink-0 flex items-center transition-transform hover:scale-105" onClick={() => handleNavClick('home')}>
               <img 
                 src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" 
@@ -91,7 +95,6 @@ const App: React.FC = () => {
               />
             </a>
 
-            {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-8 rtl:space-x-reverse">
               {NAV_ITEMS.map((item) => (
                 <a
@@ -112,54 +115,12 @@ const App: React.FC = () => {
               </button>
             </div>
 
-            {/* Mobile Menu Toggle */}
             <div className="md:hidden flex items-center gap-2">
-              <button 
-                onClick={toggleLang}
-                className={`p-2 rounded-full border ${isScrolled ? 'border-gray-200 text-gray-800' : 'border-white/30 text-white'}`}
-              >
+              <button onClick={toggleLang} className={`p-2 rounded-full border ${isScrolled ? 'border-gray-200 text-gray-800' : 'border-white/30 text-white'}`}>
                 <Globe size={20} />
               </button>
-              <button 
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className={`p-2 rounded-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}
-                aria-label="Toggle menu"
-              >
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`p-2 rounded-lg transition-colors ${isScrolled ? 'text-gray-800' : 'text-white'}`}>
                 {isMenuOpen ? <X size={28} /> : <MenuIcon size={28} />}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Sidebar */}
-        <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMenuOpen(false)}>
-          <div 
-            className={`fixed top-0 bottom-0 ${lang === 'ar' ? 'left-0' : 'right-0'} w-[80%] max-w-sm bg-white shadow-2xl transition-transform duration-500 flex flex-col p-8 ${isMenuOpen ? 'translate-x-0' : (lang === 'ar' ? '-translate-x-full' : 'translate-x-full')}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex justify-between items-center mb-12">
-              <img src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" alt="Logo" className="h-10" />
-              <button onClick={() => setIsMenuOpen(false)} className="text-gray-400 hover:text-gray-900"><X size={24} /></button>
-            </div>
-            <nav className="flex flex-col gap-6">
-              {NAV_ITEMS.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  onClick={() => handleNavClick(item.id)}
-                  className="text-2xl font-serif text-gray-800 hover:text-[#C5A383] transition-colors border-b border-gray-50 pb-2"
-                >
-                  {item.label[lang]}
-                </a>
-              ))}
-            </nav>
-            <div className="mt-auto pt-8 border-t border-gray-100">
-               <button 
-                onClick={toggleLang}
-                className="flex items-center gap-3 text-gray-800 font-bold uppercase tracking-widest text-sm"
-              >
-                <Globe size={20} className="text-[#C5A383]" />
-                {lang === 'en' ? 'Switch to العربية' : 'التحويل إلى English'}
               </button>
             </div>
           </div>
@@ -167,266 +128,177 @@ const App: React.FC = () => {
       </nav>
 
       {/* Hero Section */}
-      <header id="home" className="relative h-[95vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+      <header id="home" className="relative h-[85vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/45 z-10"></div>
+          <div className="absolute inset-0 bg-black/40 z-10"></div>
           <img 
             src="https://i.ibb.co/tTngxrFr/Untitled-design-8.png" 
-            alt="Lalie Spa Background" 
-            className="w-full h-full object-cover scale-100 animate-[ken-burns_30s_infinite_alternate]"
+            alt="Hero" 
+            className="w-full h-full object-cover animate-[ken-burns_30s_infinite_alternate]"
           />
         </div>
-        <div className="relative z-20 text-center px-4 max-w-5xl pt-20">
-          <div 
-            data-aos="fade"
-            className="inline-block px-4 py-1 mb-6 border border-white/30 rounded-full text-white/90 text-[10px] tracking-[0.4em] uppercase backdrop-blur-sm"
-          >
-            {lang === 'en' ? 'Premier Wellness Destination' : 'وجهة الرفاهية الأولى'}
-          </div>
-          <h1 
-            data-aos="fade-up"
-            data-aos-delay="200"
-            className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 tracking-tight drop-shadow-2xl leading-[1.15]"
-          >
-            {t('heroTitle')}
-          </h1>
-          <p 
-            data-aos="fade-up"
-            data-aos-delay="400"
-            className="text-base md:text-lg text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md font-light"
-          >
-            {t('heroSubtitle')}
-          </p>
-          <div 
-            data-aos="fade-up"
-            data-aos-delay="600"
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <a 
-              href={`https://wa.me/${CONTACT_INFO.whatsapp}`} 
-              target="_blank"
-              className="group bg-[#C5A383] hover:bg-[#B38D6A] text-white px-7 py-3 rounded-full text-sm font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-2"
-            >
-              {t('bookNow')}
-              <MessageCircle size={16} />
-            </a>
-            <a 
-              href="#services" 
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 px-7 py-3 rounded-full text-sm font-medium transition-all hover:border-white"
-            >
-              {t('viewServices')}
-            </a>
-          </div>
-        </div>
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 animate-bounce cursor-pointer" onClick={() => handleNavClick('about')}>
-          <div className="w-7 h-12 border-2 border-white/50 rounded-full flex justify-center pt-2">
-            <div className="w-1.5 h-3 bg-white/80 rounded-full"></div>
+        <div className="relative z-20 text-center px-4 pt-20" data-aos="fade">
+          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6 drop-shadow-xl">{t('heroTitle')}</h1>
+          <p className="text-white/90 mb-10 max-w-2xl mx-auto font-light">{t('heroSubtitle')}</p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" className="bg-[#C5A383] text-white px-8 py-3 rounded-full text-sm font-bold transition-all hover:bg-[#B38D6A]">{t('bookNow')}</a>
+            <a href="#services" className="bg-white/10 backdrop-blur-md text-white border border-white/40 px-8 py-3 rounded-full text-sm font-medium">Explore Services</a>
           </div>
         </div>
       </header>
 
-      {/* About Section */}
-      <section id="about" className="py-32 px-4 bg-white">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24 items-center">
-          <div className="relative group" data-aos="zoom-in">
-            <div className="aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl relative">
-              <img 
-                src="https://glamerastorage.b-cdn.net/ServiceImgs/10_20251021053247725.jpg" 
-                alt="Spa care" 
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
-              />
-            </div>
-            <div 
-              data-aos="zoom-in"
-              data-aos-delay="400"
-              className="absolute -bottom-8 -right-8 w-48 h-48 bg-[#F8F3F0] rounded-[2rem] hidden lg:flex flex-col items-center justify-center p-6 shadow-xl border-4 border-white"
-            >
-              <span className="text-4xl font-serif text-[#C5A383] mb-1">10+</span>
-              <p className="text-center font-bold text-gray-800 text-[10px] uppercase tracking-widest">{lang === 'en' ? 'Years of Luxury' : 'سنوات من الفخامة'}</p>
-            </div>
-          </div>
-          <div className="space-y-10" data-aos="fade-up">
-            <div className="space-y-4">
-              <div className="w-20 h-1 bg-[#C5A383]"></div>
-              <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('aboutTitle')}</h2>
-              <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900 leading-[1.1]">{lang === 'en' ? 'A Sanctuary for the Soul' : 'ملاذ للروح والجمال'}</h3>
-            </div>
-            <p className="text-gray-500 text-lg leading-relaxed font-light">{t('aboutDesc')}</p>
-            <div className="grid sm:grid-cols-2 gap-8 pt-6">
-              <div 
-                data-aos="fade-up"
-                data-aos-delay="200"
-                className="bg-[#F8F3F0]/50 p-8 rounded-[2rem] border border-transparent hover:border-[#C5A383]/20 transition-all"
+      {/* Services Section - Redesigned to match image */}
+      <section id="services" className="py-20 px-4 bg-white">
+        <div className="max-w-5xl mx-auto">
+          
+          {/* Main Tabs */}
+          <div className="flex items-center space-x-12 rtl:space-x-reverse mb-8 border-b border-gray-100 overflow-x-auto whitespace-nowrap scrollbar-hide">
+            {['service', 'package', 'giftCard'].map(tab => (
+              <button
+                key={tab}
+                onClick={() => setActiveMainTab(tab)}
+                className={`pb-4 text-lg font-medium transition-all relative ${activeMainTab === tab ? 'text-black' : 'text-gray-400'}`}
               >
-                <h4 className="text-xl font-serif font-bold text-gray-900 mb-3">{t('missionTitle')}</h4>
-                <p className="text-gray-500 leading-relaxed text-sm font-light">{t('missionDesc')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-32 px-4 bg-[#F8F3F0]/40 overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20 space-y-4" data-aos="fade-up">
-            <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('servicesTitle')}</h2>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900">{lang === 'en' ? 'Exclusive Menu' : 'قائمة الخدمات الحصرية'}</h3>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {SERVICES.map((service, idx) => (
-              <div 
-                key={service.id} 
-                data-aos="fade-up"
-                data-aos-delay={idx * 100}
-                className="bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-700 group border border-gray-50/50 flex flex-col"
-              >
-                <div className="relative h-72 overflow-hidden">
-                  <img src={service.image} alt={service.name[lang]} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                </div>
-                <div className="p-10 flex flex-col flex-grow">
-                  <div className="flex justify-between items-start mb-6">
-                    <h4 className="text-xl font-serif text-gray-900 group-hover:text-[#C5A383] transition-colors leading-tight pr-4">{service.name[lang]}</h4>
-                    <div className="text-right">
-                       <span className="block text-xl font-serif text-gray-900 font-bold whitespace-nowrap">SAR {service.price}</span>
-                    </div>
-                  </div>
-                  <button onClick={() => window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=I'd like to book ${service.name.en}`, '_blank')} className="mt-auto w-full py-3.5 rounded-2xl border border-gray-100 text-gray-900 font-bold uppercase tracking-widest text-xs hover:bg-[#C5A383] hover:text-white hover:border-[#C5A383] transition-all flex items-center justify-center gap-3">
-                    {t('bookNow')}
-                  </button>
-                </div>
-              </div>
+                {tab === 'service' ? (lang === 'en' ? 'Service' : 'الخدمة') : 
+                 tab === 'package' ? (lang === 'en' ? 'Package' : 'الباقات') : 
+                 (lang === 'en' ? 'Gift Card' : 'بطاقة هدية')}
+                {activeMainTab === tab && (
+                  <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-black rounded-full" />
+                )}
+              </button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="py-32 px-4 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20 space-y-4" data-aos="fade-up">
-            <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('galleryTitle')}</h2>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900">{lang === 'en' ? 'Visual Sanctuary' : 'ملاذ بصري'}</h3>
+          {/* Sub-Category Filter Pills */}
+          <div className="flex items-center gap-3 mb-10 overflow-x-auto pb-4 whitespace-nowrap scrollbar-hide no-scrollbar">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-8 py-2.5 rounded-full text-sm font-medium transition-all border ${
+                  activeCategory === cat 
+                  ? 'bg-[#1C1C1C] text-white border-[#1C1C1C]' 
+                  : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
+                }`}
+              >
+                {cat === 'all' ? (lang === 'en' ? 'All' : 'الكل') : 
+                 SERVICES.find(s => s.category.en === cat)?.category[lang] || cat}
+              </button>
+            ))}
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
-            {GALLERY_IMAGES.map((img, idx) => (
+
+          {/* Service Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {filteredServices.map((service, idx) => (
               <div 
-                key={idx} 
-                data-aos="zoom-in" 
+                key={service.id}
+                data-aos="fade-up"
                 data-aos-delay={idx * 50}
-                className="aspect-square rounded-[2rem] overflow-hidden shadow-sm group relative"
+                className="bg-white rounded-xl p-3 shadow-[0_4px_20px_rgba(0,0,0,0.06)] border border-gray-50 flex gap-4 hover:shadow-lg transition-shadow"
               >
-                <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div className="w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-lg overflow-hidden">
+                  <img src={service.image} alt={service.name[lang]} className="w-full h-full object-cover" />
+                </div>
+                <div className="flex flex-col flex-grow py-1">
+                  <h4 className="text-[15px] font-bold text-gray-900 mb-1">{service.name[lang]}</h4>
+                  <p className="text-[12px] text-gray-400 mb-auto">{service.duration[lang]}</p>
+                  
+                  <div className="flex justify-between items-center mt-2">
+                    <div className="flex items-center gap-1">
+                      <span className="text-sm font-medium">SAR</span>
+                      <span className="text-lg font-bold">{service.price}</span>
+                    </div>
+                    <button 
+                      onClick={() => window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=Booking request for ${service.name.en}`, '_blank')}
+                      className="w-9 h-9 bg-[#E2E8E4] hover:bg-[#C5A383] text-gray-700 hover:text-white rounded-full flex items-center justify-center transition-colors"
+                    >
+                      <Plus size={20} />
+                    </button>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-32 px-4 bg-white border-t border-gray-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
-            <div className="space-y-16" data-aos="fade-up">
-              <div className="space-y-4">
-                <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('contactTitle')}</h2>
-                <h3 className="text-4xl md:text-5xl font-serif text-gray-900 leading-[1.1]">{lang === 'en' ? 'Visit our Oasis' : 'تفضلي بزيارة واحتنا'}</h3>
+      {/* Gallery */}
+      <section id="gallery" className="py-24 px-4 bg-[#F8F3F0]/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16" data-aos="fade">
+             <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-xs mb-2">{t('galleryTitle')}</h2>
+             <h3 className="text-4xl font-serif text-gray-900">{lang === 'en' ? 'Lalie Essence' : 'جوهر لالي'}</h3>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {GALLERY_IMAGES.map((img, i) => (
+              <div key={i} data-aos="zoom-in" data-aos-delay={i*50} className="aspect-square rounded-2xl overflow-hidden shadow-md">
+                <img src={img} alt="Spa" className="w-full h-full object-cover transition-transform duration-1000 hover:scale-110" />
               </div>
-              <div className="space-y-10">
-                <div className="flex items-start gap-6 group" data-aos="fade-up" data-aos-delay="200">
-                  <div className="w-14 h-14 bg-[#F8F3F0] rounded-2xl flex items-center justify-center flex-shrink-0 text-[#C5A383] group-hover:bg-[#C5A383] group-hover:text-white transition-all"><MapPin size={28} /></div>
-                  <div>
-                    <h5 className="font-bold text-gray-900 mb-2 uppercase tracking-widest text-[10px]">{lang === 'en' ? 'Our Location' : 'موقعنا'}</h5>
-                    <p className="text-gray-500 text-lg font-light leading-snug">{CONTACT_INFO.address}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-6 group" data-aos="fade-up" data-aos-delay="300">
-                  <div className="w-14 h-14 bg-[#F8F3F0] rounded-2xl flex items-center justify-center flex-shrink-0 text-[#25D366] group-hover:bg-[#25D366] group-hover:text-white transition-all"><MessageCircle size={28} /></div>
-                  <div>
-                    <h5 className="font-bold text-gray-900 mb-2 uppercase tracking-widest text-[10px]">WhatsApp</h5>
-                    <p className="text-gray-500 text-lg font-light">{CONTACT_INFO.phone}</p>
-                  </div>
-                </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact & Map */}
+      <section id="contact" className="py-24 px-4 bg-white">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
+          <div data-aos="fade-up">
+            <h2 className="text-3xl font-serif mb-8">{t('contactTitle')}</h2>
+            <div className="space-y-6">
+              <div className="flex gap-4">
+                <MapPin className="text-[#C5A383]" />
+                <p className="text-gray-500">{CONTACT_INFO.address}</p>
+              </div>
+              <div className="flex gap-4">
+                <MessageCircle className="text-[#25D366]" />
+                <p className="text-gray-500">{CONTACT_INFO.phone}</p>
               </div>
             </div>
-            <div 
-              className="h-full min-h-[500px] rounded-[3rem] overflow-hidden shadow-2xl relative border-8 border-white"
-              data-aos="zoom-in"
-              data-aos-delay="400"
-            >
-              <iframe 
+          </div>
+          <div className="rounded-[2.5rem] overflow-hidden h-[400px] shadow-2xl" data-aos="zoom-in">
+             <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3709.664960391232!2d39.14208490000001!3d21.5989973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3db7ce1ba71bd%3A0x6069ec299c8f90cb!2zTGFsaWUgc3BhINmE2KfZhNmKINiz2KjYpw!5e0!3m2!1sen!2ssa!4v1769002112417!5m2!1sen!2ssa" 
-                width="100%" height="100%" style={{ border: 0 }} allowFullScreen={true} loading="lazy" title="Lalie Spa Map"
+                width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" title="Map"
               ></iframe>
-            </div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white pt-32 pb-12 px-4 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 border-b border-white/5 pb-20 items-start">
-            
-            {/* Column 1: Brand */}
-            <div className="space-y-10" data-aos="fade">
-              <img src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" alt="Logo" className="h-20 brightness-0 invert" />
-              <p className="text-gray-400 text-xl italic font-serif leading-relaxed">"{t('footerDesc')}"</p>
-              <div className="flex gap-4">
-                <a href={`https://instagram.com/${CONTACT_INFO.instagram}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-gray-900 transition-all"><Instagram size={20} /></a>
-                <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all"><MessageCircle size={20} /></a>
-              </div>
-            </div>
-
-            {/* Column 2: Working Hours (Integrated here) */}
-            <div className="space-y-8" data-aos="fade" data-aos-delay="200">
-              <div className="flex items-center gap-3">
-                <Clock className="text-[#C5A383]" size={20} />
-                <h4 className="text-lg font-serif uppercase tracking-widest">{t('workingHours')}</h4>
-              </div>
-              <div className="space-y-4">
-                {WORKING_HOURS.map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                    <span className="text-gray-300">{item.day[lang]}</span>
-                    <span className={`font-light ${typeof item.hours === 'string' && item.hours.includes('Closed') || (typeof item.hours === 'object' && item.hours.en === 'Closed') ? 'text-red-400/80' : 'text-gray-500'}`}>
-                      {typeof item.hours === 'string' ? item.hours : item.hours[lang]}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Column 3: Contact Summary */}
-            <div className="space-y-8" data-aos="fade" data-aos-delay="400">
-               <h4 className="text-lg font-serif uppercase tracking-widest">{lang === 'en' ? 'Quick Links' : 'روابط سريعة'}</h4>
-               <nav className="flex flex-col gap-4">
-                 {NAV_ITEMS.map((item) => (
-                   <a key={item.id} href={`#${item.id}`} className="text-sm text-gray-400 hover:text-[#C5A383] transition-colors">{item.label[lang]}</a>
-                 ))}
-               </nav>
-               <div className="pt-4 space-y-2">
-                 <p className="text-xs text-gray-500 uppercase tracking-widest">{lang === 'en' ? 'Inquiries' : 'للاستفسارات'}</p>
-                 <a href={`tel:${CONTACT_INFO.phone}`} className="block text-lg font-serif hover:text-[#C5A383] transition-colors">{CONTACT_INFO.phone}</a>
-               </div>
-            </div>
-
+      <footer className="bg-gray-900 text-white pt-20 pb-10 px-4">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 border-b border-white/5 pb-16">
+          <div className="space-y-6">
+            <img src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" alt="Logo" className="h-16 brightness-0 invert" />
+            <p className="text-gray-400 font-serif italic">"{t('footerDesc')}"</p>
           </div>
-          
-          <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 text-[10px] uppercase tracking-widest font-bold">
-            <p>&copy; {new Date().getFullYear()} Lalie Spa Jeddah. All Rights Reserved.</p>
-            <div className="flex gap-8">
-              <a href="#" className="hover:text-[#C5A383] transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-[#C5A383] transition-colors">Terms of Service</a>
+          <div>
+            <h4 className="text-[#C5A383] font-serif text-lg mb-6 uppercase tracking-widest">{t('workingHours')}</h4>
+            <div className="space-y-3">
+              {WORKING_HOURS.map((h, i) => (
+                <div key={i} className="flex justify-between text-sm border-b border-white/5 pb-1">
+                  <span className="text-gray-400">{h.day[lang]}</span>
+                  <span className={typeof h.hours === 'object' && h.hours.en === 'Closed' ? 'text-red-400' : 'text-gray-500'}>
+                    {typeof h.hours === 'string' ? h.hours : h.hours[lang]}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-6">
+            <h4 className="text-[#C5A383] font-serif text-lg uppercase tracking-widest">{lang === 'en' ? 'Connect' : 'تواصل'}</h4>
+            <div className="flex gap-4">
+              <a href={`https://instagram.com/${CONTACT_INFO.instagram}`} target="_blank" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-white hover:text-gray-900 transition-all"><Instagram size={18} /></a>
+              <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all"><MessageCircle size={18} /></a>
             </div>
           </div>
         </div>
-        <div className="absolute -bottom-10 left-0 w-full opacity-[0.03] select-none pointer-events-none whitespace-nowrap">
-          <span className="text-[20vw] font-serif font-bold uppercase tracking-tighter">LALIE SPA JEDDAH</span>
-        </div>
+        <p className="text-center text-gray-600 text-[10px] mt-10 uppercase tracking-widest">&copy; {new Date().getFullYear()} Lalie Spa Jeddah. All Rights Reserved.</p>
       </footer>
 
       <style>{`
-        @keyframes fade-in-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes ken-burns { from { transform: scale(1); } to { transform: scale(1.15); } }
+        @keyframes ken-burns { from { transform: scale(1); } to { transform: scale(1.1); } }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </div>
   );

@@ -5,7 +5,6 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: { en: 'Home', ar: 'الرئيسية' } },
   { id: 'about', label: { en: 'About', ar: 'من نحن' } },
   { id: 'services', label: { en: 'Services', ar: 'الخدمات' } },
-  { id: 'packages', label: { en: 'Packages', ar: 'الباقات' } },
   { id: 'gallery', label: { en: 'Gallery', ar: 'المعرض' } },
   { id: 'contact', label: { en: 'Contact', ar: 'اتصل بنا' } },
 ];
@@ -14,49 +13,49 @@ export const SERVICES: Service[] = [
   {
     id: 's1',
     category: { en: 'Care', ar: 'عناية' },
-    name: { en: 'Hand Paraffin', ar: 'شمع البارافين اليدوي' },
-    price: '143',
-    duration: { en: '30 Min', ar: '٣٠ دقيقة' },
+    name: { en: 'Hand Paraffin', ar: 'بكج البرافين' },
+    price: '400',
+    duration: { en: '120 Min', ar: '١٢٠ دقيقة' },
     image: 'https://glamerastorage.b-cdn.net/ServiceImgs/tbl_articles_article_29991_56572e0dd63-97fa-4352-ad5b-9d4bf83e00ee_20251021050957215.jpg'
   },
   {
     id: 's2',
     category: { en: 'Care', ar: 'عناية' },
-    name: { en: 'Foot Paraffin', ar: 'برافين القدمين' },
-    price: '143',
-    duration: { en: '30 Min', ar: '٣٠ دقيقة' },
+    name: { en: 'Amber Package', ar: 'بكج الكهرمان' },
+    price: '408',
+    duration: { en: '120 Min', ar: '١٢٠ دقيقة' },
     image: 'https://glamerastorage.b-cdn.net/ServiceImgs/71YM27SS+gL_20251021051018154._SL1500__20251021051018154.jpg'
   },
   {
     id: 's3',
     category: { en: 'Nails', ar: 'الأظافر' },
-    name: { en: 'Classic Manicure', ar: 'مانيكير كلاسيك' },
-    price: '100',
-    duration: { en: '30 Min', ar: '٣٠ دقيقة' },
+    name: { en: 'Russian Manicure + Gel', ar: 'مانيكير روسي + لون جل' },
+    price: '199',
+    duration: { en: '60 Min', ar: '٦٠ دقيقة' },
     image: 'https://i.ibb.co/TB83b9rL/Untitled-design-9.png'
   },
   {
     id: 's4',
-    category: { en: 'Nails', ar: 'الأظافر' },
-    name: { en: 'Classic Pedicure', ar: 'باديكير كلاسيك' },
-    price: '125',
-    duration: { en: '30 Min', ar: '٣٠ دقيقة' },
-    image: 'https://i.ibb.co/TB83b9rL/Untitled-design-9.png'
+    category: { en: 'Lashes', ar: 'الرموش' },
+    name: { en: 'Lashes lifting + brows lifting', ar: 'Lashes lifting+ brows lifting' },
+    price: '300',
+    duration: { en: '180 Min', ar: '١٨٠ دقيقة' },
+    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/x5zDEo8mjwveR69Mgnt3IHLlKDRCpiqpNn6JzcFt_20251021072917227.webp'
   },
   {
     id: 's5',
-    category: { en: 'Lashes', ar: 'الرموش' },
-    name: { en: 'Classic Lashes', ar: 'رموش كلاسيك' },
-    price: '385',
+    category: { en: 'Nails', ar: 'الأظافر' },
+    name: { en: 'Color with Design', ar: 'بكج لون مع ديزاين' },
+    price: '200',
     duration: { en: '120 Min', ar: '١٢٠ دقيقة' },
-    image: 'https://glamerastorage.b-cdn.net/ServiceImgs/x5zDEo8mjwveR69Mgnt3IHLlKDRCpiqpNn6JzcFt_20251021072917227.webp'
+    image: 'https://i.ibb.co/TB83b9rL/Untitled-design-9.png'
   },
   {
     id: 's6',
     category: { en: 'Body Care', ar: 'عناية بالجسم' },
-    name: { en: 'Face Cleaning (Razor)', ar: 'تنظيف الوجه (شفرة)' },
-    price: '50',
-    duration: { en: '30 Min', ar: '٣٠ دقيقة' },
+    name: { en: 'Classic Pedicure + Monthly Lashes', ar: 'مناكير باديكير + رموش شهرية كلاسيك' },
+    price: '500',
+    duration: { en: '180 Min', ar: '١٨٠ دقيقة' },
     image: 'https://glamerastorage.b-cdn.net/ServiceImgs/7d4b5728-6aa5-4c7b-b5d5-befbf0f30e2f_20251021092335822.__CR0,0,1500,1500_PT0_SX300_V1____20251021092335822.jpg'
   },
 ];
@@ -92,17 +91,6 @@ export const GALLERY_IMAGES = [
   'https://glamerastorage.b-cdn.net/ServiceImgs/40_20251021053320109.jpg',
   'https://glamerastorage.b-cdn.net/ServiceImgs/50_20251021053335337.jpg',
   'https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&q=80&w=800',
-];
-
-export const INSTAGRAM_POSTS = [
-  'https://glamerastorage.b-cdn.net/ServiceImgs/10_20251021053247725.jpg',
-  'https://glamerastorage.b-cdn.net/ServiceImgs/20_20251021053114819.jpg',
-  'https://glamerastorage.b-cdn.net/ServiceImgs/30_20251021053302561.jpg',
-  'https://glamerastorage.b-cdn.net/ServiceImgs/40_20251021053320109.jpg',
-  'https://glamerastorage.b-cdn.net/ServiceImgs/50_20251021053335337.jpg',
-  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1519415568184-e53805407000?auto=format&fit=crop&q=80&w=800',
-  'https://images.unsplash.com/photo-1544161515-4af6b1d4640b?auto=format&fit=crop&q=80&w=800',
 ];
 
 export const CONTACT_INFO = {
