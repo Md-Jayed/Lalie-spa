@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Menu as MenuIcon, 
@@ -73,8 +74,6 @@ const App: React.FC = () => {
   const handleNavClick = (id: string) => {
     setIsMenuOpen(false);
   };
-
-  const categories = ['all', ...Array.from(new Set(SERVICES.map(s => s.category.en)))];
 
   return (
     <div className={`min-h-screen bg-[#FDFCFB] text-gray-900 transition-colors duration-500 ${lang === 'ar' ? 'font-arabic' : 'font-sans'}`}>
@@ -302,6 +301,29 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section id="gallery" className="py-32 px-4 bg-white overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-20 space-y-4" data-aos="fade-up">
+            <h2 className="text-[#C5A383] font-bold tracking-[0.3em] uppercase text-sm">{t('galleryTitle')}</h2>
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-serif text-gray-900">{lang === 'en' ? 'Visual Sanctuary' : 'ملاذ بصري'}</h3>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-8">
+            {GALLERY_IMAGES.map((img, idx) => (
+              <div 
+                key={idx} 
+                data-aos="zoom-in" 
+                data-aos-delay={idx * 50}
+                className="aspect-square rounded-[2rem] overflow-hidden shadow-sm group relative"
+              >
+                <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact" className="py-32 px-4 bg-white border-t border-gray-50 overflow-hidden">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
@@ -343,16 +365,52 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-white pt-32 pb-12 px-4 relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-start border-b border-white/5 pb-20 gap-16">
-            <div className="space-y-10 max-w-sm" data-aos="fade">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 border-b border-white/5 pb-20 items-start">
+            
+            {/* Column 1: Brand */}
+            <div className="space-y-10" data-aos="fade">
               <img src="https://glamerastorage.b-cdn.net/CompanyImgs/1050971983681057%20(1)_20251015084921067.png" alt="Logo" className="h-20 brightness-0 invert" />
               <p className="text-gray-400 text-xl italic font-serif leading-relaxed">"{t('footerDesc')}"</p>
+              <div className="flex gap-4">
+                <a href={`https://instagram.com/${CONTACT_INFO.instagram}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-gray-900 transition-all"><Instagram size={20} /></a>
+                <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all"><MessageCircle size={20} /></a>
+              </div>
             </div>
-            <div className="flex gap-6" data-aos="fade" data-aos-delay="200">
-              <a href={`https://instagram.com/${CONTACT_INFO.instagram}`} target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-gray-900 transition-all"><Instagram size={24} /></a>
-              <a href={`https://wa.me/${CONTACT_INFO.whatsapp}`} target="_blank" rel="noopener noreferrer" className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center text-[#25D366] hover:bg-[#25D366] hover:text-white transition-all"><MessageCircle size={24} /></a>
+
+            {/* Column 2: Working Hours (Integrated here) */}
+            <div className="space-y-8" data-aos="fade" data-aos-delay="200">
+              <div className="flex items-center gap-3">
+                <Clock className="text-[#C5A383]" size={20} />
+                <h4 className="text-lg font-serif uppercase tracking-widest">{t('workingHours')}</h4>
+              </div>
+              <div className="space-y-4">
+                {WORKING_HOURS.map((item, idx) => (
+                  <div key={idx} className="flex justify-between items-center text-sm border-b border-white/5 pb-2">
+                    <span className="text-gray-300">{item.day[lang]}</span>
+                    <span className={`font-light ${typeof item.hours === 'string' && item.hours.includes('Closed') || (typeof item.hours === 'object' && item.hours.en === 'Closed') ? 'text-red-400/80' : 'text-gray-500'}`}>
+                      {typeof item.hours === 'string' ? item.hours : item.hours[lang]}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            {/* Column 3: Contact Summary */}
+            <div className="space-y-8" data-aos="fade" data-aos-delay="400">
+               <h4 className="text-lg font-serif uppercase tracking-widest">{lang === 'en' ? 'Quick Links' : 'روابط سريعة'}</h4>
+               <nav className="flex flex-col gap-4">
+                 {NAV_ITEMS.map((item) => (
+                   <a key={item.id} href={`#${item.id}`} className="text-sm text-gray-400 hover:text-[#C5A383] transition-colors">{item.label[lang]}</a>
+                 ))}
+               </nav>
+               <div className="pt-4 space-y-2">
+                 <p className="text-xs text-gray-500 uppercase tracking-widest">{lang === 'en' ? 'Inquiries' : 'للاستفسارات'}</p>
+                 <a href={`tel:${CONTACT_INFO.phone}`} className="block text-lg font-serif hover:text-[#C5A383] transition-colors">{CONTACT_INFO.phone}</a>
+               </div>
+            </div>
+
           </div>
+          
           <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-500 text-[10px] uppercase tracking-widest font-bold">
             <p>&copy; {new Date().getFullYear()} Lalie Spa Jeddah. All Rights Reserved.</p>
             <div className="flex gap-8">
