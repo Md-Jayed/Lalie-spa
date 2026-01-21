@@ -1,0 +1,7 @@
+{
+  "name": "L'Aura Luxury Spa & Wellness",
+  "description": "A premium, bilingual (English & Arabic) SPA and wellness center landing page with integrated booking and service listings, tailored for a luxury experience in Jeddah.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
