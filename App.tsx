@@ -8,8 +8,8 @@ import {
   MapPin, 
   Clock, 
   MessageCircle, 
-  ArrowRight,
-  ArrowLeft
+  ArrowRight, 
+  ArrowLeft 
 } from 'lucide-react';
 import { Language } from './types';
 import { content } from './translations';
@@ -52,7 +52,6 @@ const App: React.FC = () => {
 
   const handleNavClick = (id: string) => {
     setIsMenuOpen(false);
-    // Native smooth scroll using hash handled by scroll-padding-top in CSS
   };
 
   const categories = ['all', ...Array.from(new Set(SERVICES.map(s => s.category.en)))];
@@ -116,7 +115,7 @@ const App: React.FC = () => {
         {/* Mobile Sidebar Overlay */}
         <div className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] transition-opacity duration-300 md:hidden ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`} onClick={() => setIsMenuOpen(false)}>
           <div 
-            className={`fixed top-0 bottom-0 ${lang === 'ar' ? 'left-0' : 'right-0'} w-[80%] max-w-sm bg-white shadow-2xl transition-transform duration-500 flex flex-col p-8 ${isMenuOpen ? 'translate-x-0' : (lang === 'ar' ? '-translate-x-full' : 'translate-x-full')}`}
+            className={`fixed top-0 bottom-0 ${lang === 'ar' ? 'left-0' : 'right-0'} w-[80%] max-sm bg-white shadow-2xl transition-transform duration-500 flex flex-col p-8 ${isMenuOpen ? 'translate-x-0' : (lang === 'ar' ? '-translate-x-full' : 'translate-x-full')}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-12">
@@ -157,8 +156,7 @@ const App: React.FC = () => {
       {/* Hero Section */}
       <header id="home" className="relative h-[95vh] min-h-[600px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-black/40 z-10"></div>
-          {/* Using provided flyer images as a background slider or static featured image */}
+          <div className="absolute inset-0 bg-black/45 z-10"></div>
           <img 
             src="https://i.ibb.co/tTngxrFr/Untitled-design-8.png" 
             alt="Spa flyer background" 
@@ -166,27 +164,27 @@ const App: React.FC = () => {
           />
         </div>
         <div className="relative z-20 text-center px-4 max-w-5xl pt-20">
-          <div className="inline-block px-4 py-1 mb-6 border border-white/30 rounded-full text-white/90 text-xs tracking-[0.4em] uppercase backdrop-blur-sm animate-[fade-in-up_1s_ease-out_forwards]">
+          <div className="inline-block px-4 py-1 mb-6 border border-white/30 rounded-full text-white/90 text-[10px] tracking-[0.4em] uppercase backdrop-blur-sm animate-[fade-in-up_1s_ease-out_forwards]">
             {lang === 'en' ? 'Premier Wellness Destination' : 'وجهة الرفاهية الأولى'}
           </div>
-          <h1 className="text-6xl md:text-9xl font-serif text-white mb-8 tracking-tight drop-shadow-2xl opacity-0 animate-[fade-in-up_1s_ease-out_0.2s_forwards] leading-[1.1]">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif text-white mb-6 tracking-tight drop-shadow-2xl opacity-0 animate-[fade-in-up_1s_ease-out_0.2s_forwards] leading-[1.15]">
             {t('heroTitle')}
           </h1>
-          <p className="text-xl md:text-2xl text-white/95 mb-12 max-w-3xl mx-auto leading-relaxed drop-shadow-md opacity-0 animate-[fade-in-up_1s_ease-out_0.4s_forwards] font-light">
+          <p className="text-lg md:text-xl text-white/95 mb-10 max-w-2xl mx-auto leading-relaxed drop-shadow-md opacity-0 animate-[fade-in-up_1s_ease-out_0.4s_forwards] font-light">
             {t('heroSubtitle')}
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 opacity-0 animate-[fade-in-up_1s_ease-out_0.6s_forwards]">
             <a 
               href={`https://wa.me/${CONTACT_INFO.whatsapp}`} 
               target="_blank"
-              className="group bg-[#C5A383] hover:bg-[#B38D6A] text-white px-12 py-5 rounded-full text-lg font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-3"
+              className="group bg-[#C5A383] hover:bg-[#B38D6A] text-white px-8 py-3.5 rounded-full text-base font-bold transition-all transform hover:scale-105 shadow-2xl flex items-center gap-2"
             >
               {t('bookNow')}
-              <MessageCircle size={20} />
+              <MessageCircle size={18} />
             </a>
             <a 
               href="#services" 
-              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 px-12 py-5 rounded-full text-lg font-medium transition-all hover:border-white"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/40 px-8 py-3.5 rounded-full text-base font-medium transition-all hover:border-white"
             >
               {t('viewServices')}
             </a>
